@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <BannerCarousel/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BannerCarousel from './components/BannerCarousel';
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
-}
+    BannerCarousel,
+  },
+};
 </script>
 
 <style>
