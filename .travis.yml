@@ -11,5 +11,6 @@ deploy:
   api_key:
     secure: "$HEROKU_KEY"
   app: love-for-banners
+  skip_cleanup: true
   on:
     repo: dracomithril/love-for-banners
