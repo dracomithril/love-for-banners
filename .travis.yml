@@ -1,8 +1,15 @@
 language: node_js
 node_js:
-  - "lts/*"
+- lts/*
 
 script:
-  - npm run lint
-  - npm run build
-  - echo "$HEROKU_TEST"
+- npm run lint
+- npm run build
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "$HEROKU_KEY"
+  app: love-for-banners
+  on:
+    repo: dracomithril/love-for-banners
