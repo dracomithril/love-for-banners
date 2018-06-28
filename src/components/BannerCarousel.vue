@@ -1,13 +1,13 @@
 <template>
     <div class="banners">
-        <slick ref="slick" :options="slickOptions" class="banner-carousel" @beforeChange="handleBeforeChange" >
-                <a v-for="item in images"
-                   :href="item.src"
-                   :key="item.id">
-                    <img class="banner-image"
-                         :data-lazy="item.src"
-                         alt="">
-                </a>
+        <slick ref="slick" :options="slickOptions" class="banner-carousel" @afterChange="handleAfterChange">
+            <a v-for="item in images"
+               :href="item.src"
+               :key="item.id">
+                <img class="banner-image"
+                     :data-lazy="item.src"
+                     alt="">
+            </a>
         </slick>
         <div ref="buttons" class="banner-buttons">
             <button data-id="0" class="banner-button" v-on:click="setPosition(0)">banner1</button>
@@ -17,6 +17,16 @@
 </template>
 <script>
 import Slick from 'vue-slick';
+
+function activateButton(position) {
+  Array.from(this.$refs.buttons.children).forEach(elem => {
+    if (Number(elem.attributes['data-id'].value) === position) {
+      elem.classList.add('banner-button__active');
+    } else {
+      elem.classList.remove('banner-button__active');
+    }
+  });
+}
 
 export default {
   name: 'BannerCarousel',
@@ -63,18 +73,13 @@ export default {
       // Helpful if you have to deal with v-for to update dynamic lists
       this.$refs.slick.reSlick();
     },
-    handleBeforeChange(slick, current) {
-      let buttons = Array.from(this.$refs.buttons.children);
-      buttons.forEach(elem => {
-        if (elem.attributes['data-id'].value === current.currentSlide.toString()) {
-          elem.classList.add('banner-button__active');
-        } else {
-          elem.classList.remove('banner-button__active');
-        }
-      });
+    handleAfterChange(slick, current, next) {
+      activateButton.call(this, next);
     },
     setPosition(position) {
-      this.$refs.slick.goTo(position, false);
+      activateButton.call(this, position);
+
+      this.$refs.slick.goTo(position, true);
     },
   },
 };
@@ -84,10 +89,12 @@ export default {
 .slick-slider {
   margin: 30px auto 0;
 }
+
 .slick-slide img {
   height: 100%;
   width: 100%;
 }
+
 .slick-slider .slick-track,
 .slick-slider .slick-list {
   height: 13vw;
@@ -110,10 +117,12 @@ export default {
   margin-right: auto;
   justify-content: space-around;
 }
+
 .banner-buttons .banner-button {
   border: 1px solid blue;
   width: 100%;
 }
+
 .banner-buttons .banner-button__active {
   border-top: 2px solid yellow;
 }
