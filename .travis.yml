@@ -10,7 +10,7 @@ jobs:
       script: npm run test
     - if: tag IS present
       stage: deploy to production
-      script: skip
+      script: npm run build
       deploy:
         provider: heroku
         api_key:
