@@ -5,10 +5,9 @@ node_js:
 jobs:
   include:
     - stage: test
-      script:
-          - yarn run lint
-          - yarn run test
-    - if: tah IS present
+      script: yarn run lint
+    - script: yarn run test
+    - if: tag IS present
       stage: deploy to production
       script: skip
       deploy:
