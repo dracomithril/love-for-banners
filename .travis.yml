@@ -11,7 +11,7 @@ jobs:
     - if: tag IS present
       stage: deploy to production
       script: npm run build
-      deploy:
+      deploy: &heroku
         provider: heroku
         api_key:
           secure: "$HEROKU_KEY"
@@ -19,3 +19,4 @@ jobs:
         skip_cleanup: true
         on:
           repo: dracomithril/love-for-banners
+          tags: true
