@@ -2,15 +2,20 @@ language: node_js
 node_js:
 - lts/*
 
-script:
-- npm run lint
-- npm run build
-
-deploy:
-  provider: heroku
-  api_key:
-    secure: "$HEROKU_KEY"
-  app: love-for-banners
-  skip_cleanup: true
-  on:
-    repo: dracomithril/love-for-banners
+jobs:
+  include:
+    - stage: test
+      script:
+          - yarn run lint
+          - yarn run test
+    - if: tah IS present
+      stage: deploy to production
+      script: skip
+      deploy:
+        provider: heroku
+        api_key:
+          secure: "$HEROKU_KEY"
+        app: love-for-banners
+        skip_cleanup: true
+        on:
+          repo: dracomithril/love-for-banners
