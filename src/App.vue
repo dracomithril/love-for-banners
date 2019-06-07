@@ -1,24 +1,24 @@
 <template>
   <div id="app">
     <header><h1>My banner carousel</h1></header>
-    <BannerCarousel/>
+    <BannerCarousel />
   </div>
 </template>
 
 <script>
-import BannerCarousel from './components/BannerCarousel';
+import BannerCarousel from "./components/BannerCarousel";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    BannerCarousel,
-  },
+    BannerCarousel
+  }
 };
 </script>
 
 <style>
 #app {
-  font-family: 'Shrikhand', cursive;
+  font-family: "Shrikhand", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
